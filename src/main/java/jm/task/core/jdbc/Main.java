@@ -46,8 +46,32 @@ Byte age
  Удаление таблицы
  */
 
+import jm.task.core.jdbc.dao.UserDao;
+import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
+import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.service.UserService;
+import jm.task.core.jdbc.service.UserServiceImpl;
+
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         // реализуйте алгоритм здесь
+        UserService userService = new UserServiceImpl();
+
+        userService.createUsersTable();
+
+        userService.saveUser("Богдан", "Башков" , (byte) 19);
+        userService.saveUser("Иван", "Рогозин" , (byte) 43);
+        userService.saveUser("Диляра", "Рахманбекова" , (byte) 19);
+        userService.saveUser("Кирилл", "Заброда" , (byte) 21);
+
+        List<User> users = userService.getAllUsers();
+        for (User user : users) {
+            System.out.println(user);
+        }
+
+        userService.cleanUsersTable();
+        userService.dropUsersTable();
     }
 }
